@@ -70,7 +70,7 @@ public class Main {
 					
 					Contact contact = new Contact(number, firstName, lastName, email, address);
 					phoneBook.updateContact(contact);
-					phoneBook.getContactMapEntries(contact);
+				
 							
 				} else {
 					System.out.println("This phone number is new. Adding a new entry to the phone book");
@@ -104,7 +104,7 @@ public class Main {
 						System.out.println("Nulls not allowed ");
 					}
 
-					System.out.println(phoneBook.getContactMap().toString());
+					phoneBook.getContactMapEntries(contact);
 				}
 				break;
 			case 2:
