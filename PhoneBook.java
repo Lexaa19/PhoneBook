@@ -30,15 +30,22 @@ public class PhoneBook {
 	}
 
 	public boolean isValidMobileNo(String str) {
-	    // 1) Begins with 0 or 07
-	    // 2) The rest 7 digits can contain any number between 0 to 9
-	    Pattern p = Pattern.compile("(0|07)?[7][0-9]{8}");
-	 
-	    // Pattern class contains matcher() method
-	    // to find matching between given number
-	    // and regular expression
-	    Matcher m = p.matcher(str);
-	    return (m.find() && m.group().equals(str));
+		// check if number starts with 0
+		Pattern p = Pattern.compile("^0[0-9-( )]+$");
+
+		// Pattern class contains matcher() method
+		// to find matching between given string
+		// and regular expression
+		// remove the white spaces and dashes from the string so that they are not
+		// counted when computing length
+		str = str.replaceAll("[()\\s-]+", "");
+		Matcher m = p.matcher(str);
+
+		if ((m.find() && m.group().equals(str)) && str.length() == 10) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
