@@ -1,9 +1,8 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class PhoneBook {
 	// key: phone number
@@ -33,7 +32,6 @@ public class PhoneBook {
 	 * @return true if the string matches the regex pattern and false otherwise
 	 */
 	public boolean isValidMobileNo(String str) {
-
 		/*
 		 * Pattern class contains matcher() method to find matching between given string
 		 * and regular expression
@@ -50,7 +48,11 @@ public class PhoneBook {
 			// remove the white spaces and dashes from the string so that they are not
 			// counted when computing length
 			str = str.replaceAll("[()\\s-]+", "");
+			
+			// returns a Matcher object which contains information about the search that was
+			// performed
 			Matcher m = p.matcher(str);
+			//groups are a way to treat multiple characters as a single unit
 			if ((m.find() && m.group().equals(str)) && str.length() == 10) {
 				return true;
 			} else {
@@ -61,6 +63,13 @@ public class PhoneBook {
 			System.out.println(ex.getMessage());
 		}
 		return true;
+	}
+
+	public void getContactMapEntries(Contact entry) {
+		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
+			System.out.println(String.format("%s %s %s %s ", entry.getPhoneNumber(), entry.getFirstName(),
+					entry.getLastName(), entry.getEmail()));
+		}
 	}
 
 }
