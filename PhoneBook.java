@@ -1,5 +1,3 @@
-package com.caliopi.mapphonebookchallenge;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
