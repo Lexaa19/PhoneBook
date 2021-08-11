@@ -1,5 +1,3 @@
-package com.caliopi.mapphonebookchallenge;
-
 import java.util.Scanner;
 
 public class Main {
@@ -63,13 +61,17 @@ public class Main {
 					email = scanner.next();
 
 					System.out.println("Enter the address: ");
-					// accept user input with whitespaces
+					// accept user input with white spaces
 					address = scanner.nextLine();
 					address += scanner.nextLine();
-
+					
+					System.out.println("Phone book was updated successfully.\nPress ENTER to continue.");
+					scanner.nextLine();
+					
 					Contact contact = new Contact(number, firstName, lastName, email, address);
 					phoneBook.updateContact(contact);
-					System.out.println(phoneBook.getContactMap().toString());
+					phoneBook.getContactMapEntries(contact);
+							
 				} else {
 					System.out.println("This phone number is new. Adding a new entry to the phone book");
 					System.out.println("Enter the first name: ");
