@@ -101,8 +101,9 @@ public class Main {
 					number = scanner.nextLine();
 
 				}
+
 				if (!number.isEmpty()) {
-					phoneBook.listContactsByPhoneNumber(number);
+					phoneBook.listContactByPhoneNumber(number);
 				}
 				break;
 
@@ -125,7 +126,7 @@ public class Main {
 		}
 
 		while (!phoneBook.isValidMobileNo(number)) {
-			System.out.println("Number is not ok. Please reenter the phone number");
+			System.out.println("Phone number is not in the correct format. Please reenter the phone number");
 			number = scanner.nextLine();
 		}
 		return number;
