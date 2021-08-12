@@ -74,6 +74,7 @@ public class PhoneBook {
 		return true;
 	}
 
+	// method for listing the contacts in the phone book (case 2 in Main)
 	public void getContactMapEntries() {
 		/*
 		 * Map.Entry interface in Java provides certain methods to access the entry in
@@ -88,7 +89,12 @@ public class PhoneBook {
 		}
 	}
 
-	public void listContactsByPhoneNumber(String phoneNumber) {
+	/*
+	 * method for listing the contact details by entering phone number in the phone
+	 * book (case 3 in Main)
+	 */
+
+	public void listContactByPhoneNumber(String phoneNumber) {
 		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
 			String contactMapKey = contact.getKey();
 			Contact contactMapValue = contact.getValue();
