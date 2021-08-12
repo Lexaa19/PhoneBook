@@ -48,11 +48,11 @@ public class PhoneBook {
 			// remove the white spaces and dashes from the string so that they are not
 			// counted when computing length
 			str = str.replaceAll("[()\\s-]+", "");
-			
+
 			// returns a Matcher object which contains information about the search that was
 			// performed
 			Matcher m = p.matcher(str);
-			//groups are a way to treat multiple characters as a single unit
+			// groups are a way to treat multiple characters as a single unit
 			if ((m.find() && m.group().equals(str)) && str.length() == 10) {
 				return true;
 			} else {
@@ -67,8 +67,9 @@ public class PhoneBook {
 
 	public void getContactMapEntries(Contact entry) {
 		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
-			System.out.println(String.format("%s %s %s %s ", entry.getPhoneNumber(), entry.getFirstName(),
-					entry.getLastName(), entry.getEmail()));
+			Contact contactMapValue = contact.getValue();
+			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(), contactMapValue.getFirstName(),
+					contactMapValue.getLastName(), contactMapValue.getEmail()));
 		}
 	}
 
