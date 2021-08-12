@@ -45,14 +45,23 @@ public class PhoneBook {
 		try {
 			Pattern p = Pattern.compile("^0[0-9-( )]+$");
 
-			// remove the white spaces and dashes from the string so that they are not
-			// counted when computing length
+			/*
+			 * remove the white spaces and dashes from the string so that they are not
+			 * counted when computing length. + => One or more ; \\s => empty space
+			 */
 			str = str.replaceAll("[()\\s-]+", "");
 
-			// returns a Matcher object which contains information about the search that was
-			// performed
+			/*
+			 * returns a Matcher object which contains information about the search that was
+			 * performed
+			 */
+
 			Matcher m = p.matcher(str);
-			// groups are a way to treat multiple characters as a single unit
+			/*
+			 * groups are a way to treat multiple characters as a single unit The find()
+			 * method of Matcher Class attempts to find the next subsequence of the input
+			 * sequence that find the pattern. It returns a boolean value
+			 */
 			if ((m.find() && m.group().equals(str)) && str.length() == 10) {
 				return true;
 			} else {
@@ -65,11 +74,34 @@ public class PhoneBook {
 		return true;
 	}
 
-	public void getContactMapEntries(Contact entry) {
+	public void getContactMapEntries() {
+		/*
+		 * Map.Entry interface in Java provides certain methods to access the entry in
+		 * the Map. Map.Entry interface in Java provides certain methods to access the
+		 * entry in the Map.
+		 */
 		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
 			Contact contactMapValue = contact.getValue();
-			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(), contactMapValue.getFirstName(),
-					contactMapValue.getLastName(), contactMapValue.getEmail()));
+			// %s is a 'format character', indicating "insert a string here"
+			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(),
+					contactMapValue.getFirstName(), contactMapValue.getLastName(), contactMapValue.getEmail()));
+		}
+	}
+
+	public void listContactsByPhoneNumber(String phoneNumber) {
+		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
+			String contactMapKey = contact.getKey();
+			Contact contactMapValue = contact.getValue();
+			if (phoneNumber.equals(contactMapKey)) {
+				System.out.println("Phone number: " + contactMapValue.getPhoneNumber());
+				System.out.println("First name: " + contactMapValue.getFirstName());
+				System.out.println("Last name: " + contactMapValue.getLastName());
+				System.out.println("Email: " + contactMapValue.getEmail());
+				System.out.println("Address: " + contactMapValue.getAddress());
+			} else {
+				System.out.println("The phone number could not be found in the address book");
+			}
+
 		}
 	}
 
