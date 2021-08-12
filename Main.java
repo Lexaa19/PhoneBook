@@ -28,15 +28,15 @@ public class Main {
 				System.out.println("Enter the phone number: ");
 				number = scanner.nextLine();
 
-				validatePhoneNumber(number, phoneBook);
+				number = validatePhoneNumber(number, phoneBook);
 
 				// Edit existing contact
 				if (phoneBook.getContactMap().containsKey(number)) {
 					System.out.println("This phone number already exists. Editing an existing entry");
-					
+
 					System.out.println("Enter the first name: ");
 					firstName = scanner.nextLine();
-					validateFirstName(firstName);
+					firstName = validateFirstName(firstName);
 
 					System.out.println("Enter the last name: ");
 					lastName = scanner.nextLine();
@@ -49,24 +49,25 @@ public class Main {
 					// accept user input with white spaces
 					address = scanner.nextLine();
 					address += scanner.nextLine();
+
+					Contact contact = new Contact(number, firstName, lastName, email, address);
+
+					phoneBook.updateContact(contact);
 
 					System.out.println("\nPhone book was updated successfully.\nPress ENTER to continue.");
 					scanner.nextLine();
 
-					Contact contact = new Contact(number, firstName, lastName, email, address);
-					phoneBook.updateContact(contact);
-
 				} else {
 					System.out.println("This phone number is new. Adding a new entry to the phone book");
-					
+
 					System.out.println("Enter the first name: ");
 					firstName = scanner.nextLine();
 					validateFirstName(firstName);
-					
+
 					System.out.println("Enter the last name: ");
 					lastName = scanner.nextLine();
-					validateLastName(lastName);
-					
+					lastName = validateLastName(lastName);
+
 					System.out.println("Enter the email: ");
 					email = scanner.next();
 
@@ -74,15 +75,15 @@ public class Main {
 					// accept user input with white spaces
 					address = scanner.nextLine();
 					address += scanner.nextLine();
-					
+
 					Contact contact = new Contact(number, firstName, lastName, email, address);
 					if (contact.getPhoneNumber() != null) {
 						phoneBook.add(contact);
 					} else {
 						System.out.println("Nulls not allowed ");
 					}
-
 				}
+
 				break;
 
 			case 2:
@@ -93,8 +94,16 @@ public class Main {
 				break;
 
 			case 3:
-				System.out.println("Find a contact by phone number : ");
-				number = scanner.next();
+				System.out.println("Search by phone number : ");
+				number = scanner.nextLine();
+				while (number.isEmpty()) {
+					System.out.println("The phone number cannot be empty");
+					number = scanner.nextLine();
+
+				}
+				if (!number.isEmpty()) {
+					phoneBook.listContactsByPhoneNumber(number);
+				}
 				break;
 
 			case 4:
@@ -107,7 +116,7 @@ public class Main {
 
 	}
 
-	public static void validatePhoneNumber(String number, PhoneBook phoneBook) {
+	public static String validatePhoneNumber(String number, PhoneBook phoneBook) {
 		Scanner scanner = new Scanner(System.in);
 
 		while (number.isEmpty()) {
@@ -119,25 +128,28 @@ public class Main {
 			System.out.println("Number is not ok. Please reenter the phone number");
 			number = scanner.nextLine();
 		}
+		return number;
+
 	}
 
-	public static void validateFirstName(String firstName) {
+	public static String validateFirstName(String firstName) {
 		Scanner scanner = new Scanner(System.in);
+
 		while (firstName.isEmpty()) {
 			System.out.println("First name cannot be empty.\nEnter the first name: ");
 			firstName = scanner.nextLine();
 		}
-
+		return firstName;
 	}
-	
-	public static void validateLastName(String lastName) {
+
+	public static String validateLastName(String lastName) {
 		Scanner scanner = new Scanner(System.in);
 
 		while (lastName.isEmpty()) {
 			System.out.println("Last name cannot be empty.\nEnter the first name: ");
 			lastName = scanner.nextLine();
 		}
-
+		return lastName;
 	}
 
 }
