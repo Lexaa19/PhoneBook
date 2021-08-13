@@ -112,13 +112,5 @@ public class PhoneBook {
 		}
 	}
 
-	/*
-	 * the noun is in plural because we can have multiple contacts with the same
-	 * name, whereas for the phone number this is not possible
-	 */
-
-//	public void listContactsByName(String name) {
-//		this.contactMap = new CaseInsensitiveMap<String, Contact>();
-//	}
 
 }
