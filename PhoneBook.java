@@ -83,19 +83,6 @@ public class PhoneBook {
 		return true;
 	}
 
-	// method for listing the contacts in the phone book (case 2 in Main)
-	public void getContactMapEntries() {
-		/*
-		 * Map.Entry interface in Java provides certain methods to access the entry in
-		 * the Map. Map.Entry interface in Java provides certain methods to access the
-		 * entry in the Map.
-		 */
-		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
-			Contact contactMapValue = contact.getValue();
-			// %s is a 'format character', indicating "insert a string here"
-			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(),
-					contactMapValue.getFirstName(), contactMapValue.getLastName(), contactMapValue.getEmail()));
-		}
-	}
+	
 
 }
