@@ -1,4 +1,7 @@
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 public class Main {
 
@@ -10,8 +13,8 @@ public class Main {
 
 		do {
 			System.out.println("\nPhone Book");
-			System.out.println(
-					"There are currently " + phoneBook.getContactMap().size() + " contact(s) in the phone book.\n");
+			System.out.println("There is/(are) currently " + phoneBook.getContactMap().size()
+					+ " contact(s) in the phone book.\n");
 			System.out.println(
 					"1. Add or edit a contact.\n2. View all contacts.\n3. Find a contact by phone number\n4. Find contacts by name.\n5. Exit");
 			try {
@@ -103,7 +106,7 @@ public class Main {
 				}
 
 				if (!number.isEmpty()) {
-					phoneBook.listContactByPhoneNumber(number);
+					searchContactByPhoneNumber(phoneBook, number);
 				}
 				break;
 
@@ -158,6 +161,37 @@ public class Main {
 			lastName = scanner.nextLine();
 		}
 		return lastName;
+	}
+
+	public static void searchContactByPhoneNumber(PhoneBook phonebook, String phoneNumber) {
+		Scanner scanner = new Scanner(System.in);
+		/*
+		 * Map.Entry interface in Java provides certain methods to access the entry in
+		 * the Map. Map.Entry interface in Java provides certain methods to access the
+		 * entry in the Map. It should be used if you need both map keys and values in
+		 * the loop
+		 * 
+		 * entrySet() method in Java is used to create a set out of the same elements
+		 * contained in the hash map. It basically returns a set view of the hash map or
+		 * we can create a new set and store the map elements into them.
+		 * 
+		 * entrySet() is doing a lookup only once, so it is faster
+		 */
+		Iterator<Map.Entry<String, Contact>> contactMapIterator = phonebook.getContactMap().entrySet().iterator();
+
+		while (contactMapIterator.hasNext()) {
+			Entry<String, Contact> contact = contactMapIterator.next();
+			if (phoneNumber.equals(contact.getKey())) {
+				System.out.println("Phone number: " + contact.getValue().getPhoneNumber());
+				System.out.println("First name: " + contact.getValue().getFirstName());
+				System.out.println("Last name: " + contact.getValue().getLastName());
+				System.out.println("Email: " + contact.getValue().getEmail());
+				System.out.println("Address: " + contact.getValue().getAddress());
+			}
+
+		}
+		System.out.println("\nPress ENTER to continue.");
+		scanner.nextLine();
 	}
 
 }
