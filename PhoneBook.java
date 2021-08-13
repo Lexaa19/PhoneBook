@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-
 public class PhoneBook {
 	// key: phone number
 	private Map<String, Contact> contactMap = new HashMap<String, Contact>();
@@ -95,7 +94,7 @@ public class PhoneBook {
 	 * book (case 3 in Main)
 	 */
 
-	public void listContactByPhoneNumber(String phoneNumber) {
+	public boolean listContactByPhoneNumber(String phoneNumber) {
 		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
 			String contactMapKey = contact.getKey();
 			Contact contactMapValue = contact.getValue();
@@ -105,11 +104,12 @@ public class PhoneBook {
 				System.out.println("Last name: " + contactMapValue.getLastName());
 				System.out.println("Email: " + contactMapValue.getEmail());
 				System.out.println("Address: " + contactMapValue.getAddress());
-			} else {
-				System.out.println("The phone number could not be found in the address book");
+				return true;
 			}
 
 		}
+		System.out.println("The contact could not be found");
+		return false;
 	}
 
 }
