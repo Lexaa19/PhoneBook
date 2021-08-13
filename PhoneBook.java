@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+
 public class PhoneBook {
 	// key: phone number
 	private Map<String, Contact> contactMap = new HashMap<String, Contact>();
@@ -110,5 +111,14 @@ public class PhoneBook {
 
 		}
 	}
+
+	/*
+	 * the noun is in plural because we can have multiple contacts with the same
+	 * name, whereas for the phone number this is not possible
+	 */
+
+//	public void listContactsByName(String name) {
+//		this.contactMap = new CaseInsensitiveMap<String, Contact>();
+//	}
 
 }
