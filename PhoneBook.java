@@ -1,5 +1,8 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -7,6 +10,12 @@ import java.util.regex.PatternSyntaxException;
 public class PhoneBook {
 	// key: phone number
 	private Map<String, Contact> contactMap = new HashMap<String, Contact>();
+
+	// Getting a Set of Key-value pairs
+	private Set<Entry<String, Contact>> entrySet = contactMap.entrySet();
+
+	// Obtaining an iterator for the entry set
+	private Iterator it = entrySet.iterator();
 
 	public void add(Contact entry) {
 		this.contactMap.put(entry.getPhoneNumber(), new Contact(entry.getPhoneNumber(), entry.getFirstName(),
@@ -87,29 +96,6 @@ public class PhoneBook {
 			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(),
 					contactMapValue.getFirstName(), contactMapValue.getLastName(), contactMapValue.getEmail()));
 		}
-	}
-
-	/*
-	 * method for listing the contact details by entering phone number in the phone
-	 * book (case 3 in Main)
-	 */
-
-	public boolean listContactByPhoneNumber(String phoneNumber) {
-		for (Map.Entry<String, Contact> contact : contactMap.entrySet()) {
-			String contactMapKey = contact.getKey();
-			Contact contactMapValue = contact.getValue();
-			if (phoneNumber.equals(contactMapKey)) {
-				System.out.println("Phone number: " + contactMapValue.getPhoneNumber());
-				System.out.println("First name: " + contactMapValue.getFirstName());
-				System.out.println("Last name: " + contactMapValue.getLastName());
-				System.out.println("Email: " + contactMapValue.getEmail());
-				System.out.println("Address: " + contactMapValue.getAddress());
-				return true;
-			}
-
-		}
-		System.out.println("The contact could not be found");
-		return false;
 	}
 
 }
