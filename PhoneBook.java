@@ -9,13 +9,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class PhoneBook {
 	// key: phone number
-	private Map<String, Contact> contactMap = new HashMap<String, Contact>();
-
-	// Getting a Set of Key-value pairs
-	private Set<Entry<String, Contact>> entrySet = contactMap.entrySet();
-
-	// Obtaining an iterator for the entry set
-	private Iterator it = entrySet.iterator();
+	private Map<String, Contact> contactMap = new HashMap<>();
 
 	public void add(Contact entry) {
 		this.contactMap.put(entry.getPhoneNumber(), new Contact(entry.getPhoneNumber(), entry.getFirstName(),
@@ -24,10 +18,6 @@ public class PhoneBook {
 
 	public Map<String, Contact> getContactMap() {
 		return new HashMap<String, Contact>(contactMap);
-	}
-
-	public void setContactMap(Map<String, Contact> contactMap) {
-		this.contactMap = contactMap;
 	}
 
 	public void updateContact(Contact entry) {
@@ -82,7 +72,5 @@ public class PhoneBook {
 		}
 		return true;
 	}
-
-	
 
 }
