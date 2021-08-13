@@ -7,7 +7,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String firstName, lastName, number, email, address;
+		String firstName;
+		String lastName;
+		String number;
+		String address;
+		String email;
 		int userOption = 0;
 		PhoneBook phoneBook = new PhoneBook();
 
@@ -37,21 +41,14 @@ public class Main {
 				if (phoneBook.getContactMap().containsKey(number)) {
 					System.out.println("This phone number already exists. Editing an existing entry");
 
-					System.out.print("Enter the first name: ");
-					firstName = scanner.nextLine();
-					firstName = validateFirstName(firstName);
-
-					System.out.print("Enter the last name: ");
-					lastName = scanner.nextLine();
-					validateLastName(lastName);
-
-					System.out.print("Enter the email: ");
-					email = scanner.next();
-
+					firstName = readFirstName();
+					lastName = readLastName();
+					email = readEmail();
+					
 					System.out.print("Enter the address: ");
 					// accept user input with white spaces
 					address = scanner.nextLine();
-					address += scanner.nextLine();
+					//address += scanner.nextLine();
 
 					Contact contact = new Contact(number, firstName, lastName, email, address);
 
@@ -63,16 +60,9 @@ public class Main {
 				} else {
 					System.out.println("This phone number is new. Adding a new entry to the phone book");
 
-					System.out.print("Enter the first name: ");
-					firstName = scanner.nextLine();
-					validateFirstName(firstName);
-
-					System.out.print("Enter the last name: ");
-					lastName = scanner.nextLine();
-					lastName = validateLastName(lastName);
-
-					System.out.print("Enter the email: ");
-					email = scanner.next();
+					firstName = readFirstName();
+					lastName = readLastName();
+					email = readEmail();
 
 					System.out.print("Enter the address: ");
 					// accept user input with white spaces
@@ -127,6 +117,36 @@ public class Main {
 
 	}
 
+	public static String readFirstName() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter the first name: ");
+		String firstName = scanner.nextLine();
+		while (firstName.isEmpty()) {
+			System.out.print("First name cannot be empty.\nEnter the first name: ");
+			firstName = scanner.nextLine();
+		}
+		return firstName;
+	}
+
+	public static String readLastName() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter the last name: ");
+		String lastName = scanner.nextLine();
+
+		while (lastName.isEmpty()) {
+			System.out.print("Last name cannot be empty.\nEnter the first name: ");
+			lastName = scanner.nextLine();
+		}
+		return lastName;
+	}
+
+	public static String readEmail() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter the email: ");
+		String email = scanner.next();
+		return email;
+	}
+
 	public static String validatePhoneNumber(String number, PhoneBook phoneBook) {
 		Scanner scanner = new Scanner(System.in);
 
@@ -143,29 +163,8 @@ public class Main {
 
 	}
 
-	public static String validateFirstName(String firstName) {
-		Scanner scanner = new Scanner(System.in);
-
-		while (firstName.isEmpty()) {
-			System.out.print("First name cannot be empty.\nEnter the first name: ");
-			firstName = scanner.nextLine();
-		}
-		return firstName;
-	}
-
-	public static String validateLastName(String lastName) {
-		Scanner scanner = new Scanner(System.in);
-
-		while (lastName.isEmpty()) {
-			System.out.print("Last name cannot be empty.\nEnter the first name: ");
-			lastName = scanner.nextLine();
-		}
-		return lastName;
-	}
-
-
 	public static void getContactMapEntries(PhoneBook phonebook) {
-	
+
 		for (Map.Entry<String, Contact> contact : phonebook.getContactMap().entrySet()) {
 			Contact contactMapValue = contact.getValue();
 			// %s is a 'format character', indicating "insert a string here"
