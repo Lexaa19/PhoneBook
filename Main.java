@@ -91,7 +91,7 @@ public class Main {
 
 			case 2:
 				System.out.println("\nContact list\n");
-				phoneBook.getContactMapEntries();
+				getContactMapEntries(phoneBook);
 				System.out.println("\nPress ENTER to continue.");
 				scanner.nextLine();
 				break;
@@ -161,6 +161,17 @@ public class Main {
 			lastName = scanner.nextLine();
 		}
 		return lastName;
+	}
+
+
+	public static void getContactMapEntries(PhoneBook phonebook) {
+	
+		for (Map.Entry<String, Contact> contact : phonebook.getContactMap().entrySet()) {
+			Contact contactMapValue = contact.getValue();
+			// %s is a 'format character', indicating "insert a string here"
+			System.out.println(String.format("%s %s %s %s ", contactMapValue.getPhoneNumber(),
+					contactMapValue.getFirstName(), contactMapValue.getLastName(), contactMapValue.getEmail()));
+		}
 	}
 
 	public static void searchContactByPhoneNumber(PhoneBook phonebook, String phoneNumber) {
