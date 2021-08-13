@@ -97,7 +97,7 @@ public class Main {
 				System.out.print("Search by phone number: ");
 				number = scanner.nextLine();
 				while (number.isEmpty()) {
-					System.out.print("The phone number cannot be empty ");
+					System.out.print("The phone number cannot be empty: ");
 					number = scanner.nextLine();
 
 				}
