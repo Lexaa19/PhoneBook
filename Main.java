@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-	
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		String firstName, lastName, number, email, address;
@@ -13,7 +13,7 @@ public class Main {
 			System.out.println(
 					"There are currently " + phoneBook.getContactMap().size() + " contact(s) in the phone book.\n");
 			System.out.println(
-					"1. Add or edit a contact.\n2. View all contacts.\n3. Find a contact by phone number\n4. Find contacts by name.\n0. Exit");
+					"1. Add or edit a contact.\n2. View all contacts.\n3. Find a contact by phone number\n4. Find contacts by name.\n5. Exit");
 			try {
 				System.out.print("Select an option: ");
 				userOption = scanner.nextInt();
@@ -25,7 +25,7 @@ public class Main {
 			switch (userOption) {
 
 			case 1:
-				System.out.println("Enter the phone number: ");
+				System.out.print("Enter the phone number: ");
 				number = scanner.nextLine();
 
 				number = validatePhoneNumber(number, phoneBook);
@@ -34,18 +34,18 @@ public class Main {
 				if (phoneBook.getContactMap().containsKey(number)) {
 					System.out.println("This phone number already exists. Editing an existing entry");
 
-					System.out.println("Enter the first name: ");
+					System.out.print("Enter the first name: ");
 					firstName = scanner.nextLine();
 					firstName = validateFirstName(firstName);
 
-					System.out.println("Enter the last name: ");
+					System.out.print("Enter the last name: ");
 					lastName = scanner.nextLine();
 					validateLastName(lastName);
 
-					System.out.println("Enter the email: ");
+					System.out.print("Enter the email: ");
 					email = scanner.next();
 
-					System.out.println("Enter the address: ");
+					System.out.print("Enter the address: ");
 					// accept user input with white spaces
 					address = scanner.nextLine();
 					address += scanner.nextLine();
@@ -60,18 +60,18 @@ public class Main {
 				} else {
 					System.out.println("This phone number is new. Adding a new entry to the phone book");
 
-					System.out.println("Enter the first name: ");
+					System.out.print("Enter the first name: ");
 					firstName = scanner.nextLine();
 					validateFirstName(firstName);
 
-					System.out.println("Enter the last name: ");
+					System.out.print("Enter the last name: ");
 					lastName = scanner.nextLine();
 					lastName = validateLastName(lastName);
 
-					System.out.println("Enter the email: ");
+					System.out.print("Enter the email: ");
 					email = scanner.next();
 
-					System.out.println("Enter the address: ");
+					System.out.print("Enter the address: ");
 					// accept user input with white spaces
 					address = scanner.nextLine();
 					address += scanner.nextLine();
@@ -94,10 +94,10 @@ public class Main {
 				break;
 
 			case 3:
-				System.out.println("Search by phone number : ");
+				System.out.print("Search by phone number: ");
 				number = scanner.nextLine();
 				while (number.isEmpty()) {
-					System.out.println("The phone number cannot be empty");
+					System.out.print("The phone number cannot be empty ");
 					number = scanner.nextLine();
 
 				}
@@ -108,9 +108,16 @@ public class Main {
 				break;
 
 			case 4:
-				System.out.println("Find a contact by name : ");
+				System.out.println("Find a contact by name: ");
 				number = scanner.next();
 				break;
+			case 5:
+				userOption = scanner.nextInt();
+				if (userOption == 0) {
+					System.exit(0);
+				} else {
+					break;
+				}
 
 			}
 		} while (userOption != 5);
@@ -121,12 +128,12 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		while (number.isEmpty()) {
-			System.out.println("Phone number cannot be empty.\nEnter the phone number: ");
+			System.out.print("Phone number cannot be empty.\nEnter the phone number: ");
 			number = scanner.nextLine();
 		}
 
 		while (!phoneBook.isValidMobileNo(number)) {
-			System.out.println("Phone number is not in the correct format. Please reenter the phone number");
+			System.out.print("Phone number is not in the correct format. Please reenter the phone number: ");
 			number = scanner.nextLine();
 		}
 		return number;
@@ -137,7 +144,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		while (firstName.isEmpty()) {
-			System.out.println("First name cannot be empty.\nEnter the first name: ");
+			System.out.print("First name cannot be empty.\nEnter the first name: ");
 			firstName = scanner.nextLine();
 		}
 		return firstName;
@@ -147,7 +154,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		while (lastName.isEmpty()) {
-			System.out.println("Last name cannot be empty.\nEnter the first name: ");
+			System.out.print("Last name cannot be empty.\nEnter the first name: ");
 			lastName = scanner.nextLine();
 		}
 		return lastName;
