@@ -1,7 +1,11 @@
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
+
 
 public class Main {
 
@@ -63,7 +67,6 @@ public class Main {
 				} else {
 					break;
 				}
-
 			}
 		} while (userOption != 5);
 
@@ -79,9 +82,14 @@ public class Main {
 		if (phoneBook.getContactMap().containsKey(phoneNumber)) {
 			System.out.println("This phone number already exists. Editing an existing entry");
 
-			readUserInfo();
+			firstName = readFirstName();
+			lastName = readLastName();
+			email = readEmail();
+			address = readAddress();
+
 			Contact contact = new Contact(phoneNumber, firstName, lastName, email, address);
-			phoneBook.updateContact(contact);
+			Contact contactFinalContact = new Contact(contact);
+			phoneBook.updateContact(contactFinalContact);
 
 			System.out.println("\nPhone book was updated successfully.\nPress ENTER to continue.");
 			scanner.nextLine();
@@ -89,11 +97,15 @@ public class Main {
 		} else {
 			System.out.println("This phone number is new. Adding a new entry to the phone book");
 
-			readUserInfo();
-			Contact contact = new Contact(phoneNumber, firstName, lastName, email, address);
+			firstName = readFirstName();
+			lastName = readLastName();
+			email = readEmail();
+			address = readAddress();
 
+			Contact contact = new Contact(phoneNumber, firstName, lastName, email, address);
+			Contact contactFinalContact = new Contact(contact);
 			if (contact.getPhoneNumber() != null) {
-				phoneBook.add(contact);
+				phoneBook.add(contactFinalContact);
 			} else {
 				System.out.println("Nulls not allowed ");
 			}
@@ -124,6 +136,7 @@ public class Main {
 	}
 
 	// METHODS FOR READING USER INPUT
+	
 	public static String readPhoneNumber(PhoneBook phoneBook) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter the phone number: ");
@@ -178,15 +191,7 @@ public class Main {
 		return address;
 	}
 
-	// method used in case 1 for avoiding duplicated code
-	public static void readUserInfo() {
-		String firstName = readFirstName();
-		String lastName = readLastName();
-		String email = readEmail();
-		String address = readAddress();
-	}
-	
-	//method used in case 2 to view all the contacts
+	// method used in case 2 to view all the contacts
 	public static void getContactMapEntries(PhoneBook phonebook) {
 
 		for (Map.Entry<String, Contact> contact : phonebook.getContactMap().entrySet()) {
