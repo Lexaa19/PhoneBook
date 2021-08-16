@@ -7,12 +7,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String firstName;
-		String lastName;
-		String number;
-		String address;
-		String email;
+
+		String firstName = null;
+		String lastName = null;
+		String number = null;
+		String address = null;
+		String email = null;
 		int userOption = 0;
+
+		final int OPTION_ADD_EDIT = 1;
+		final int OPTION_VIEW_CONTACTS = 2;
+		final int OPTION_FIND_NUMBER = 3;
+		final int OPTION_FIND_NAME = 4;
+		final int OPTION_EXIT = 5;
+
 		PhoneBook phoneBook = new PhoneBook();
 
 		do {
@@ -31,80 +39,24 @@ public class Main {
 			}
 			switch (userOption) {
 
-			case 1:
-				System.out.print("Enter the phone number: ");
-				number = scanner.nextLine();
-
-				number = validatePhoneNumber(number, phoneBook);
-
-				// Edit existing contact
-				if (phoneBook.getContactMap().containsKey(number)) {
-					System.out.println("This phone number already exists. Editing an existing entry");
-
-					firstName = readFirstName();
-					lastName = readLastName();
-					email = readEmail();
-					
-					System.out.print("Enter the address: ");
-					// accept user input with white spaces
-					address = scanner.nextLine();
-					//address += scanner.nextLine();
-
-					Contact contact = new Contact(number, firstName, lastName, email, address);
-
-					phoneBook.updateContact(contact);
-
-					System.out.println("\nPhone book was updated successfully.\nPress ENTER to continue.");
-					scanner.nextLine();
-
-				} else {
-					System.out.println("This phone number is new. Adding a new entry to the phone book");
-
-					firstName = readFirstName();
-					lastName = readLastName();
-					email = readEmail();
-
-					System.out.print("Enter the address: ");
-					// accept user input with white spaces
-					address = scanner.nextLine();
-					address += scanner.nextLine();
-
-					Contact contact = new Contact(number, firstName, lastName, email, address);
-					if (contact.getPhoneNumber() != null) {
-						phoneBook.add(contact);
-					} else {
-						System.out.println("Nulls not allowed ");
-					}
-				}
-
+			case OPTION_ADD_EDIT:
+				caseAddEdit(number, firstName, lastName, email, address, phoneBook);
 				break;
 
-			case 2:
-				System.out.println("\nContact list\n");
-				getContactMapEntries(phoneBook);
-				System.out.println("\nPress ENTER to continue.");
-				scanner.nextLine();
+			case OPTION_VIEW_CONTACTS:
+				caseViewContacts(phoneBook);
 				break;
 
-			case 3:
-				System.out.print("Search by phone number: ");
-				number = scanner.nextLine();
-				while (number.isEmpty()) {
-					System.out.print("The phone number cannot be empty: ");
-					number = scanner.nextLine();
-
-				}
-
-				if (!number.isEmpty()) {
-					searchContactByPhoneNumber(phoneBook, number);
-				}
+			case OPTION_FIND_NUMBER:
+				caseFindNumber(phoneBook);
 				break;
 
-			case 4:
+			case OPTION_FIND_NAME:
 				System.out.println("Find a contact by name: ");
 				number = scanner.next();
 				break;
-			case 5:
+
+			case OPTION_EXIT:
 				userOption = scanner.nextInt();
 				if (userOption == 0) {
 					System.exit(0);
@@ -115,6 +67,77 @@ public class Main {
 			}
 		} while (userOption != 5);
 
+	}
+
+	// SWITCH CASES SPLIT INTO METHODS
+	public static void caseAddEdit(String phoneNumber, String firstName, String lastName, String email, String address,
+			PhoneBook phoneBook) {
+		Scanner scanner = new Scanner(System.in);
+		phoneNumber = readPhoneNumber(phoneBook);
+
+		// Edit existing contact
+		if (phoneBook.getContactMap().containsKey(phoneNumber)) {
+			System.out.println("This phone number already exists. Editing an existing entry");
+
+			readUserInfo();
+			Contact contact = new Contact(phoneNumber, firstName, lastName, email, address);
+			phoneBook.updateContact(contact);
+
+			System.out.println("\nPhone book was updated successfully.\nPress ENTER to continue.");
+			scanner.nextLine();
+
+		} else {
+			System.out.println("This phone number is new. Adding a new entry to the phone book");
+
+			readUserInfo();
+			Contact contact = new Contact(phoneNumber, firstName, lastName, email, address);
+
+			if (contact.getPhoneNumber() != null) {
+				phoneBook.add(contact);
+			} else {
+				System.out.println("Nulls not allowed ");
+			}
+		}
+	}
+
+	public static void caseViewContacts(PhoneBook phoneBook) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("\nContact list\n");
+		getContactMapEntries(phoneBook);
+		System.out.println("\nPress ENTER to continue.");
+		scanner.nextLine();
+	}
+
+	public static void caseFindNumber(PhoneBook phoneBook) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Search by phone number: ");
+		String phoneNumber = scanner.nextLine();
+		while (phoneNumber.isEmpty()) {
+			System.out.print("The phone number cannot be empty: ");
+			phoneNumber = scanner.nextLine();
+
+		}
+
+		if (!phoneNumber.isEmpty()) {
+			searchContactByPhoneNumber(phoneBook, phoneNumber);
+		}
+	}
+
+	// METHODS FOR READING USER INPUT
+	public static String readPhoneNumber(PhoneBook phoneBook) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter the phone number: ");
+		String number = scanner.nextLine();
+		while (number.isEmpty()) {
+			System.out.print("Phone number cannot be empty.\nEnter the phone number: ");
+			number = scanner.nextLine();
+		}
+
+		while (!phoneBook.isValidMobileNo(number)) {
+			System.out.print("Phone number is not in the correct format. Please reenter the phone number: ");
+			number = scanner.nextLine();
+		}
+		return number;
 	}
 
 	public static String readFirstName() {
@@ -147,22 +170,23 @@ public class Main {
 		return email;
 	}
 
-	public static String validatePhoneNumber(String number, PhoneBook phoneBook) {
+	public static String readAddress() {
 		Scanner scanner = new Scanner(System.in);
-
-		while (number.isEmpty()) {
-			System.out.print("Phone number cannot be empty.\nEnter the phone number: ");
-			number = scanner.nextLine();
-		}
-
-		while (!phoneBook.isValidMobileNo(number)) {
-			System.out.print("Phone number is not in the correct format. Please reenter the phone number: ");
-			number = scanner.nextLine();
-		}
-		return number;
-
+		System.out.print("Enter the address: ");
+		// accept user input with white spaces
+		String address = scanner.nextLine();
+		return address;
 	}
 
+	// method used in case 1 for avoiding duplicated code
+	public static void readUserInfo() {
+		String firstName = readFirstName();
+		String lastName = readLastName();
+		String email = readEmail();
+		String address = readAddress();
+	}
+	
+	//method used in case 2 to view all the contacts
 	public static void getContactMapEntries(PhoneBook phonebook) {
 
 		for (Map.Entry<String, Contact> contact : phonebook.getContactMap().entrySet()) {
@@ -173,6 +197,7 @@ public class Main {
 		}
 	}
 
+	// method used in case 2 to search by phone number
 	public static void searchContactByPhoneNumber(PhoneBook phonebook, String phoneNumber) {
 		Scanner scanner = new Scanner(System.in);
 		/*
