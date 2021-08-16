@@ -1,11 +1,12 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.Map.Entry;
-
 
 public class Main {
 
@@ -57,7 +58,11 @@ public class Main {
 
 			case OPTION_FIND_NAME:
 				System.out.println("Find a contact by name: ");
-				number = scanner.next();
+				firstName = scanner.nextLine();
+				// String[] a = scanner.nextLine().split(" ");
+
+				searchContactByName(phoneBook, firstName);
+
 				break;
 
 			case OPTION_EXIT:
@@ -70,6 +75,31 @@ public class Main {
 			}
 		} while (userOption != 5);
 
+	}
+
+	// method used in case 4 to search by first name or last name
+	public static void searchContactByName(PhoneBook phonebook, String name) {
+		Scanner scanner = new Scanner(System.in);
+
+		Iterator<Map.Entry<String, Contact>> contactMapIterator = phonebook.getContactMap().entrySet().iterator();
+		while (contactMapIterator.hasNext()) {
+			Entry<String, Contact> contact = contactMapIterator.next();
+			if (name.equals(contact.getValue().getFirstName()) || name.equals(contact.getValue().getLastName())) {
+				System.out.println("Phone number: " + contact.getValue().getPhoneNumber());
+				System.out.println("First name: " + contact.getValue().getFirstName());
+				System.out.println("Last name: " + contact.getValue().getLastName());
+				System.out.println("Email: " + contact.getValue().getEmail());
+				System.out.println("Address: " + contact.getValue().getAddress());
+			} else if (name.equals(contact.getValue().getLastName())) {
+				System.out.println("Phone number: " + contact.getValue().getPhoneNumber());
+				System.out.println("First name: " + contact.getValue().getFirstName());
+				System.out.println("Last name: " + contact.getValue().getLastName());
+				System.out.println("Email: " + contact.getValue().getEmail());
+				System.out.println("Address: " + contact.getValue().getAddress());
+			}
+		}
+		System.out.println("\nPress ENTER to continue.");
+		scanner.nextLine();
 	}
 
 	// SWITCH CASES SPLIT INTO METHODS
@@ -136,7 +166,6 @@ public class Main {
 	}
 
 	// METHODS FOR READING USER INPUT
-	
 	public static String readPhoneNumber(PhoneBook phoneBook) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter the phone number: ");
@@ -193,7 +222,6 @@ public class Main {
 
 	// method used in case 2 to view all the contacts
 	public static void getContactMapEntries(PhoneBook phonebook) {
-
 		for (Map.Entry<String, Contact> contact : phonebook.getContactMap().entrySet()) {
 			Contact contactMapValue = contact.getValue();
 			// %s is a 'format character', indicating "insert a string here"
@@ -202,7 +230,7 @@ public class Main {
 		}
 	}
 
-	// method used in case 2 to search by phone number
+	// method used in case 3 to search by phone number
 	public static void searchContactByPhoneNumber(PhoneBook phonebook, String phoneNumber) {
 		Scanner scanner = new Scanner(System.in);
 		/*
@@ -218,7 +246,6 @@ public class Main {
 		 * entrySet() is doing a lookup only once, so it is faster
 		 */
 		Iterator<Map.Entry<String, Contact>> contactMapIterator = phonebook.getContactMap().entrySet().iterator();
-
 		while (contactMapIterator.hasNext()) {
 			Entry<String, Contact> contact = contactMapIterator.next();
 			if (phoneNumber.equals(contact.getKey())) {
