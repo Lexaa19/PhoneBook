@@ -12,8 +12,8 @@ public class PhoneBook {
 	private Map<String, Contact> contactMap = new HashMap<>();
 
 	public void add(Contact entry) {
-		this.contactMap.put(entry.getPhoneNumber(), new Contact(entry.getPhoneNumber(), entry.getFirstName(),
-				entry.getLastName(), entry.getEmail(), entry.getAddress()));
+		//use copy contructor
+		this.contactMap.put(entry.getPhoneNumber(), entry);
 	}
 
 	public Map<String, Contact> getContactMap() {
@@ -21,8 +21,7 @@ public class PhoneBook {
 	}
 
 	public void updateContact(Contact entry) {
-		this.contactMap.replace(entry.getPhoneNumber(), new Contact(entry.getPhoneNumber(), entry.getFirstName(),
-				entry.getLastName(), entry.getEmail(), entry.getAddress()));
+		this.contactMap.replace(entry.getPhoneNumber(), entry);
 	}
 
 	/**
