@@ -8,11 +8,19 @@ class Contact {
 	private String address;
 
 	public Contact(String phoneNumber, String firstName, String lastName, String email, String address) {
-		this.phoneNumber = phoneNumber;
+		this.phoneNumber =phoneNumber ;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
+	}
+	
+	public Contact(Contact contact) {
+		this.phoneNumber = contact.phoneNumber;
+		this.firstName = contact.firstName;
+		this.lastName = contact.lastName;
+		this.email = contact.email;
+		this.address = contact.address;
 	}
 
 	public String getPhoneNumber() {
@@ -62,4 +70,3 @@ class Contact {
 	}
 
 }
-
