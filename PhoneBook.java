@@ -4,33 +4,51 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+/**
+ * Represents the PhoneBook containing all the contacts.
+ * 
+ * It also holds the logic for the contact operations(add, update etc)
+ * 
+ * It doesn't hold any messages that are displayed to the user. That is done in
+ * the Main class
+ * 
+ * @author Caliopi Durdunescu
+ * @since 17.08.2021
+ */
 public class PhoneBook {
-	// key: phone number
+
 	private Map<String, Contact> contactMap = new HashMap<>();
-	
+
 	/**
-	 * Method that uses the copy constructor
+	 * Uses the Contact class copy constructor to add contacts to the contactMap
 	 * 
-	 * @param str -> the string to be check by the regex
-	 * @return true if the string matches the regex pattern and false otherwise
+	 * @param entry an object of type Contact
 	 */
 	public void add(Contact entry) {
-		//use copy constructor
 		this.contactMap.put(entry.getPhoneNumber(), entry);
 	}
-	
+
+	/**
+	 * Gets a copy (using the "new" keyword") of the contactMap containing all the
+	 * contacts
+	 */
 	public Map<String, Contact> getContactMap() {
-		//return a copy of the map
 		return new HashMap<String, Contact>(contactMap);
 	}
 
+	/**
+	 * Updates an entry in the contactMap
+	 * 
+	 * @param entry an object of type Contact
+	 */
 	public void updateContact(Contact entry) {
 		this.contactMap.replace(entry.getPhoneNumber(), entry);
 	}
 
 	/**
+	 * Checks if the phone number is a valid one with the help of regex
 	 * 
-	 * @param str -> the string to be checked by the regex
+	 * @param str the string to be checked by the regex
 	 * @return true if the string matches the regex pattern and false otherwise
 	 */
 	public boolean isValidMobileNo(String str) {
@@ -49,7 +67,11 @@ public class PhoneBook {
 
 			/*
 			 * remove the white spaces and dashes from the string so that they are not
-			 * counted when computing length. + => One or more ; \\s => empty space
+			 * counted when computing length.
+			 * 
+			 * + => One or more
+			 * 
+			 * \\s => empty space
 			 */
 			str = str.replaceAll("[()\\s-]+", "");
 
@@ -60,9 +82,10 @@ public class PhoneBook {
 
 			Matcher m = p.matcher(str);
 			/*
-			 * groups are a way to treat multiple characters as a single unit The find()
-			 * method of Matcher Class attempts to find the next subsequence of the input
-			 * sequence that find the pattern. It returns a boolean value
+			 * groups are a way to treat multiple characters as a single unit.
+			 * 
+			 * The find() method of Matcher Class attempts to find the next subsequence of
+			 * the input sequence that find the pattern. It returns a boolean value
 			 */
 			if ((m.find() && m.group().equals(str)) && str.length() == 10) {
 				return true;
