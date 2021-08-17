@@ -230,21 +230,23 @@ public class Main {
 		}
 	}
 
-	// method used in case 3 to search by phone number
+	/*
+	 * Method used in case 3 to search by phone number
+	 * 
+	 * Map.Entry interface in Java provides certain methods to access the entry in
+	 * the Map. Map.Entry interface in Java provides certain methods to access the
+	 * entry in the Map. It should be used if you need both map keys and values in
+	 * the loop
+	 * 
+	 * entrySet() method in Java is used to create a set out of the same elements
+	 * contained in the hash map. It basically returns a set view of the hash map or
+	 * we can create a new set and store the map elements into them.
+	 * 
+	 * entrySet() is doing a lookup only once, so it is faster
+	 */
+
 	public static void searchContactByPhoneNumber(PhoneBook phonebook, String phoneNumber) {
 		Scanner scanner = new Scanner(System.in);
-		/*
-		 * Map.Entry interface in Java provides certain methods to access the entry in
-		 * the Map. Map.Entry interface in Java provides certain methods to access the
-		 * entry in the Map. It should be used if you need both map keys and values in
-		 * the loop
-		 * 
-		 * entrySet() method in Java is used to create a set out of the same elements
-		 * contained in the hash map. It basically returns a set view of the hash map or
-		 * we can create a new set and store the map elements into them.
-		 * 
-		 * entrySet() is doing a lookup only once, so it is faster
-		 */
 		Iterator<Map.Entry<String, Contact>> contactMapIterator = phonebook.getContactMap().entrySet().iterator();
 		while (contactMapIterator.hasNext()) {
 			Entry<String, Contact> contact = contactMapIterator.next();
@@ -254,6 +256,8 @@ public class Main {
 				System.out.println("Last name: " + contact.getValue().getLastName());
 				System.out.println("Email: " + contact.getValue().getEmail());
 				System.out.println("Address: " + contact.getValue().getAddress());
+			}else {
+				System.out.println("The phone number could not be found in the address book.");
 			}
 
 		}
