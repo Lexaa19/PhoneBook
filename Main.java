@@ -208,7 +208,7 @@ public class Main {
 	public static String readEmail() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter the email: ");
-		String email = scanner.next();
+		String email = scanner.nextLine();
 		return email;
 	}
 
