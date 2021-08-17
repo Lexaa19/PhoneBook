@@ -7,13 +7,20 @@ import java.util.regex.PatternSyntaxException;
 public class PhoneBook {
 	// key: phone number
 	private Map<String, Contact> contactMap = new HashMap<>();
-
+	
+	/**
+	 * Method that uses the copy constructor
+	 * 
+	 * @param str -> the string to be check by the regex
+	 * @return true if the string matches the regex pattern and false otherwise
+	 */
 	public void add(Contact entry) {
 		//use copy constructor
 		this.contactMap.put(entry.getPhoneNumber(), entry);
 	}
-
+	
 	public Map<String, Contact> getContactMap() {
+		//return a copy of the map
 		return new HashMap<String, Contact>(contactMap);
 	}
 
@@ -23,7 +30,7 @@ public class PhoneBook {
 
 	/**
 	 * 
-	 * @param str -> the string to be check by the regex
+	 * @param str -> the string to be checked by the regex
 	 * @return true if the string matches the regex pattern and false otherwise
 	 */
 	public boolean isValidMobileNo(String str) {
