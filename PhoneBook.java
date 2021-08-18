@@ -49,14 +49,14 @@ public class PhoneBook {
 	 * Checks if the phone number is a valid one with the help of regex
 	 * 
 	 * @param str the string to be checked by the regex
-	 * @return true if the string matches the regex pattern and false otherwise
+	 * @return true if the string matches the regex pattern
 	 */
 	public boolean isValidMobileNo(String str) {
 		/*
 		 * Pattern class contains matcher() method to find matching between given string
 		 * and regular expression
 		 * 
-		 * ^ defines that the pattern must start at beginning of a new line
+		 * ^ defines that the pattern must start at the beginning of a new line
 		 * 
 		 * by using ^ and $ you tell the engine that whatever is in between them must
 		 * cover the entire line end-to-end
