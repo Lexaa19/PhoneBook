@@ -1,5 +1,8 @@
 # PhoneBook
 
+The screenshots mentioned below describe the small application functionality.
+The application in a basic console app, where a user can keep contact's information.
+
 ![ss1](https://user-images.githubusercontent.com/55296361/205441635-ab4e536e-81c0-48a8-8780-3b079756eb91.png)
 
 ![ss2](https://user-images.githubusercontent.com/55296361/205441642-be203726-17cb-48e7-ab57-da15356f20a7.png)
